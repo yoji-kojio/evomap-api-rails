@@ -1,5 +1,5 @@
 class Api::V1::CareersController < Api::V1::ApiController
-  before_action :set_career, only: [:show, :update, :destroy]
+  before_action :set_career, only: [:show, :update, :destroy, :get_career_contents]
 
   # GET /api/v1/careers
   def index
@@ -36,6 +36,12 @@ class Api::V1::CareersController < Api::V1::ApiController
   # DELETE /api/v1/careers/1
   def destroy
     @career.destroy
+  end
+
+  # GET /apli/v1/careers/1/get_career_contents
+  def get_career_contents
+    contents = @career.contents
+    render json: contents
   end
 
   private

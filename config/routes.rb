@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :careers
       resources :careers_users
+
+      controller :careers do
+        get '/careers/:id/get_career_contents' => :get_career_contents, as: :get_career_contents
+      end
     end
   end
 end

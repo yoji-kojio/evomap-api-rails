@@ -1,0 +1,2 @@
+class ContentsRequirements < ApplicationRecord
+end

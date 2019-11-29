@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_054404) do
+ActiveRecord::Schema.define(version: 2019_11_29_133614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,31 @@ ActiveRecord::Schema.define(version: 2019_11_29_054404) do
     t.index ["user_id", "career_id"], name: "index_careers_users_on_user_id_and_career_id"
   end
 
+  create_table "contents", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contents_requirements", id: false, force: :cascade do |t|
+    t.bigint "requirement_id", null: false
+    t.bigint "content_id", null: false
+    t.index ["content_id", "requirement_id"], name: "index_contents_requirements_on_content_id_and_requirement_id"
+    t.index ["requirement_id", "content_id"], name: "index_contents_requirements_on_requirement_id_and_content_id"
+  end
+
+  create_table "requirements", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.text "description"
+    t.bigint "career_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["career_id"], name: "index_requirements_on_career_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -44,4 +69,5 @@ ActiveRecord::Schema.define(version: 2019_11_29_054404) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "requirements", "careers"
 end
