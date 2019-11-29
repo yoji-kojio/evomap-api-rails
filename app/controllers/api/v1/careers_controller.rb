@@ -4,8 +4,9 @@ class Api::V1::CareersController < Api::V1::ApiController
 
   # GET /api/v1/careers
   def index
-    @careers = current_user.careers
-    render json: @careers
+    @career = current_user.career
+    binding.pry
+    render json: @career
   end
 
   # GET /api/v1/careers/1
