@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_and_belongs_to_many :careers
+  has_many :user_requirements
 
   acts_as_token_authenticatable
 end

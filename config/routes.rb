@@ -7,7 +7,14 @@ Rails.application.routes.draw do
       resources :careers_users
 
       controller :careers do
-        get '/careers/:id/get_career_contents' => :get_career_contents, as: :get_career_contents
+        get '/careers/:id/get-career-contents' => :get_career_contents, as: :get_career_contents
+      end
+
+      controller :users do
+        get '/users' => :index, as: :index
+        get '/users/get-careers' => :get_careers, as: :get_careers
+        get '/users/get-requirements' => :get_requirements, as: :get_requirements
+        get '/users/get-finished-requirements' => :get_finished_requirements, as: :get_finished_requirements
       end
     end
   end
