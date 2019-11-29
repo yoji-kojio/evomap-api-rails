@@ -1,4 +1,4 @@
 class Career < ApplicationRecord
-  belongs_to :user
-  validates :name, :user, presence: true
+  has_and_belongs_to_many :users
+  validates :name, presence: true
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_040254) do
+ActiveRecord::Schema.define(version: 2019_11_29_054404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,15 @@ ActiveRecord::Schema.define(version: 2019_11_29_040254) do
   create_table "careers", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_careers_on_user_id"
+  end
+
+  create_table "careers_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "career_id", null: false
+    t.index ["career_id", "user_id"], name: "index_careers_users_on_career_id_and_user_id"
+    t.index ["user_id", "career_id"], name: "index_careers_users_on_user_id_and_career_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,5 +44,4 @@ ActiveRecord::Schema.define(version: 2019_11_29_040254) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "careers", "users"
 end

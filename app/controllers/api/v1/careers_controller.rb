@@ -1,11 +1,9 @@
 class Api::V1::CareersController < Api::V1::ApiController
   before_action :set_career, only: [:show, :update, :destroy]
-  before_action :require_authorization!, only: [:show, :update, :destroy]
 
   # GET /api/v1/careers
   def index
-    @career = current_user.career
-    binding.pry
+    @career = current_user.careers
     render json: @career
   end
 
@@ -16,7 +14,7 @@ class Api::V1::CareersController < Api::V1::ApiController
 
   # POST /api/v1/careers
   def create
-    @career = Career.new(career_params.merge(user: current_user))
+    @career = Career.new(career_params)
 
     if @career.save
       render json: @career, status: :created
@@ -49,11 +47,5 @@ class Api::V1::CareersController < Api::V1::ApiController
   # Only allow a trusted parameter "white list" through.
   def career_params
     params.require(:career).permit(:name, :description)
-  end
-
-  def require_authorization!
-    unless current_user == @career.user
-      render json: {}, status: :forbidden
-    end
   end
 end
